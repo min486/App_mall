@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
 
     kotlin("kapt")
@@ -7,20 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "desktop.mall"
+    namespace = "fastcampus.part3.presentation"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "desktop.mall"
         minSdk = 28
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -42,6 +36,8 @@ android {
         // jvmTarget = "1.8"
         jvmTarget = "17"
     }
+
+    // compose 활성
     buildFeatures {
         compose = true
     }
@@ -57,8 +53,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data"))
-    implementation(project(":presentation"))
 
     // hilt
     implementation("com.google.dagger:hilt-android:2.44")

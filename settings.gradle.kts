@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "mall"
 include(":app")
- 
+include(":data")
+include(":domain")
+include(":presentation")

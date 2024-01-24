@@ -1,4 +1,4 @@
-package desktop.mall.ui.theme
+package desktop.mall.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

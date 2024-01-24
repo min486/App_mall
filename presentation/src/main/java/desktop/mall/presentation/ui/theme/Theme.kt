@@ -1,4 +1,4 @@
-package desktop.mall.ui.theme
+package desktop.mall.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
