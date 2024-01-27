@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import desktop.mall.data.repository.TestRepositoryImpl
-import desktop.mall.domain.repository.TestRepository
+import desktop.mall.data.repository.MainRepositoryImpl
+import desktop.mall.domain.repository.MainRepository
 import javax.inject.Singleton
 
 @Module
@@ -15,4 +15,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun bindTestRepository(testRepositoryImpl: TestRepositoryImpl): TestRepository
+
+    @Binds
+    @Singleton
+    fun bindMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
 }

@@ -14,12 +14,15 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import desktop.mall.presentation.ui.main.MainInsideScreen
+import desktop.mall.presentation.viewmodel.MainViewModel
 
 sealed class MainNavItem(val route: String, val icon: ImageVector, val name: String) {
     object Main : MainNavItem("Main", Icons.Filled.Home, "Main")
@@ -30,6 +33,8 @@ sealed class MainNavItem(val route: String, val icon: ImageVector, val name: Str
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen() {
+    val viewModel = hiltViewModel<MainViewModel>()
+
     val scaffoldState = rememberScaffoldState()
     val navController = rememberNavController()
 
@@ -39,7 +44,7 @@ fun MainScreen() {
             MainBottomNavBar(navController)
         }
     ) {
-        MainNavScreen(navController = navController)
+        MainNavScreen(viewModel = viewModel, navController = navController)
     }
 
 }
@@ -77,10 +82,10 @@ fun MainBottomNavBar(navController: NavController) {
 }
 
 @Composable
-fun MainNavScreen(navController: NavHostController) {
+fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
     NavHost(navController = navController, startDestination = MainNavItem.Main.route) {
         composable(MainNavItem.Main.route) {
-            Text(text = "Main")
+            MainInsideScreen(viewModel)
         }
         composable(MainNavItem.Category.route) {
             Text(text = "Category")

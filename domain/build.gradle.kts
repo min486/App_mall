@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "fastcampus.part3.domain"
+    namespace = "desktop.mall.domain"
     compileSdk = 33
 
     defaultConfig {
@@ -42,6 +42,9 @@ dependencies {
     // hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // gson
+    implementation("com.google.code.gson:gson:2.10.1")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

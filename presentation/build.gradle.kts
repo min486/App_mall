@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "fastcampus.part3.presentation"
+    namespace = "desktop.mall.presentation"
     compileSdk = 33
 
     defaultConfig {
