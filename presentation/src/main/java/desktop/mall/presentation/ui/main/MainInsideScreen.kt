@@ -8,10 +8,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import desktop.mall.domain.model.Banner
 import desktop.mall.domain.model.BannerList
+import desktop.mall.domain.model.Carousel
 import desktop.mall.domain.model.ModelType
 import desktop.mall.domain.model.Product
 import desktop.mall.presentation.ui.component.BannerCard
 import desktop.mall.presentation.ui.component.BannerListCard
+import desktop.mall.presentation.ui.component.CarouselCard
 import desktop.mall.presentation.ui.component.ProductCard
 import desktop.mall.presentation.viewmodel.MainViewModel
 
@@ -28,10 +30,17 @@ fun MainInsideScreen(viewModel: MainViewModel) {
             GridItemSpan(spanCount)
         }) {
             when(val item = modelList[it]) {
-                is BannerList -> BannerListCard(model = item)
-                is Banner -> BannerCard(model = item)  // item as Banner로 스마트 캐스팅됨
-                is Product -> ProductCard(product = item) {
-
+                is BannerList -> BannerListCard(model = item) { model ->
+                    viewModel.openBannerList(model)
+                }
+                is Banner -> BannerCard(model = item) { model ->  // item as Banner로 스마트 캐스팅됨
+                    viewModel.openBanner(model)
+                }
+                is Product -> ProductCard(product = item) { model ->
+                    viewModel.openProduct(model)
+                }
+                is Carousel -> CarouselCard(model = item) { model ->
+                    viewModel.openCarouselProduct(model)
                 }
             }
         }
@@ -41,7 +50,6 @@ fun MainInsideScreen(viewModel: MainViewModel) {
 private fun getSpanCountByType(type: ModelType, defaultColumnCount: Int): Int {
     return when(type) {
         ModelType.PRODUCT -> 1
-        ModelType.BANNER, ModelType.BANNER_LIST -> defaultColumnCount  // 가로 가득차게
+        ModelType.BANNER, ModelType.BANNER_LIST, ModelType.CAROUSEL -> defaultColumnCount  // 가로 가득차게
     }
 }
-

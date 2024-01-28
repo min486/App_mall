@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,9 +28,9 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.pager.HorizontalPager
 import desktop.mall.presentation.ui.theme.LightBlack
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun BannerListCard(model: BannerList) {
+fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
     val pagerState = rememberPagerState()
 
     // 배너카드가 보일때, 카드의 view와 lifecycle을 동일하게 가져가는 scope
@@ -40,8 +41,8 @@ fun BannerListCard(model: BannerList) {
 
     HorizontalPager(count = model.imageList.size, state = pagerState) {
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { onClick(model) }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.banner),

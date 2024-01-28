@@ -3,6 +3,9 @@ package desktop.mall.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import desktop.mall.domain.model.Banner
+import desktop.mall.domain.model.BannerList
+import desktop.mall.domain.model.Product
 import desktop.mall.domain.usecase.MainUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,5 +26,21 @@ class MainViewModel @Inject constructor(useCase: MainUseCase) : ViewModel() {
         viewModelScope.launch {
             _columnCount.emit(count)
         }
+    }
+
+    fun openProduct(product: Product) {
+
+    }
+
+    fun openCarouselProduct(product: Product) {
+
+    }
+
+    fun openBanner(banner: Banner) {
+
+    }
+
+    fun openBannerList(bannerList: BannerList) {
+
     }
 }
