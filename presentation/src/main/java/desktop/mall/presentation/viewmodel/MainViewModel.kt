@@ -1,15 +1,27 @@
 package desktop.mall.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import desktop.mall.domain.usecase.MainUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(useCase: MainUseCase) : ViewModel() {
-    val productList = useCase.getProductList()
+    private val _columnCount = MutableStateFlow(2)
+    val columnCount: StateFlow<Int> = _columnCount
+    val modelList = useCase.getModelList()
 
     fun openSearchForm() {
         println("openSearchForm")
+    }
+
+    fun updateColumnCount(count: Int) {
+        viewModelScope.launch {
+            _columnCount.emit(count)
+        }
     }
 }

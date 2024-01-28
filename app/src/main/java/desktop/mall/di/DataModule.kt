@@ -14,9 +14,5 @@ interface DataModule {
 
     @Binds
     @Singleton
-    fun bindTestRepository(testRepositoryImpl: TestRepositoryImpl): TestRepository
-
-    @Binds
-    @Singleton
     fun bindMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
 }
