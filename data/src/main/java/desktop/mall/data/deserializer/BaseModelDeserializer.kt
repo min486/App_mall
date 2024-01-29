@@ -10,6 +10,7 @@ import desktop.mall.domain.model.BaseModel
 import desktop.mall.domain.model.Carousel
 import desktop.mall.domain.model.ModelType
 import desktop.mall.domain.model.Product
+import desktop.mall.domain.model.Ranking
 import java.lang.reflect.Type
 
 // 수동으로 json 파일을 가져와서 파싱해주는 부분
@@ -32,6 +33,7 @@ class BaseModelDeserializer : JsonDeserializer<BaseModel> {
             ModelType.PRODUCT -> gson.fromJson(root, Product::class.java)
             ModelType.BANNER_LIST -> gson.fromJson(root, BannerList::class.java)
             ModelType.CAROUSEL -> gson.fromJson(root, Carousel::class.java)
+            ModelType.RANKING -> gson.fromJson(root, Ranking::class.java)
         }
     }
 }
