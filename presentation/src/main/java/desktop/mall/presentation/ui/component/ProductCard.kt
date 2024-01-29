@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import desktop.mall.domain.model.Category
 import desktop.mall.domain.model.Product
 import desktop.mall.domain.model.Price
@@ -34,15 +37,17 @@ import desktop.mall.presentation.delegate.ProductDelegate
 import desktop.mall.presentation.model.ProductVM
 import desktop.mall.presentation.ui.theme.Purple40
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProductCard(presentationVM: ProductVM) {
+fun ProductCard(navHostController: NavHostController, presentationVM: ProductVM) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .fillMaxWidth()
             .height(intrinsicSize = IntrinsicSize.Max)
             .padding(10.dp)
-            .shadow(elevation = 10.dp)
+            .shadow(elevation = 10.dp),
+        onClick = { presentationVM.openProduct(navHostController, presentationVM.model) }
     ) {
         Column(
             modifier = Modifier
@@ -113,6 +118,7 @@ fun Price(product: Product) {
 @Composable
 private fun PreviewProductCard() {
     ProductCard(
+        rememberNavController(),
         ProductVM(
             model = Product(
                 productId = "1",
@@ -133,7 +139,7 @@ private fun PreviewProductCard() {
                 isFreeShipping = false
             ),
             object : ProductDelegate {
-                override fun openProduct(product: Product) {
+                override fun openProduct(navHostController: NavHostController, product: Product) {
                 }
             }
         )

@@ -20,9 +20,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import desktop.mall.domain.model.Category
+import desktop.mall.domain.model.Product
 import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.main.MainCategoryScreen
 import desktop.mall.presentation.ui.main.MainHomeScreen
+import desktop.mall.presentation.ui.product_detail.ProductDetailScreen
 import desktop.mall.presentation.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -84,7 +86,7 @@ fun MainBottomNavBar(navController: NavController, currentRoute: String?) {
 fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationRouteName.MAIN_HOME) {
         composable(NavigationRouteName.MAIN_HOME) {
-            MainHomeScreen(viewModel)
+            MainHomeScreen(navController, viewModel)
         }
         composable(NavigationRouteName.MAIN_CATEGORY) {
             MainCategoryScreen(viewModel, navController)
@@ -98,10 +100,18 @@ fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
         ) {
             val categoryString = it.arguments?.getString("category")
             val category = Gson().fromJson(categoryString, Category::class.java)
-            if(category != null) {
-                CategoryScreen(category = category)
+            if (category != null) {
+                CategoryScreen(category = category, navHostController = navController)
+            }
+        }
+        composable(
+            NavigationRouteName.PRODUCT_DETAIL + "/{product}",
+            arguments = listOf(navArgument("product") { type = NavType.StringType })
+        ) {
+            val productString = it.arguments?.getString("product")
+            if (productString != null) {
+                ProductDetailScreen(productId = productString)
             }
         }
     }
 }
-

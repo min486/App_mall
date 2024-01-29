@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavHostController
 import desktop.mall.domain.model.ModelType
 import desktop.mall.presentation.model.BannerListVM
 import desktop.mall.presentation.model.BannerVM
@@ -20,7 +21,7 @@ import desktop.mall.presentation.ui.component.RankingCard
 import desktop.mall.presentation.viewmodel.MainViewModel
 
 @Composable
-fun MainHomeScreen(viewModel: MainViewModel) {
+fun MainHomeScreen(navController: NavHostController, viewModel: MainViewModel) {
     val modelList by viewModel.modelList.collectAsState(initial = listOf())
     val columnCount by viewModel.columnCount.collectAsState()
 
@@ -34,9 +35,9 @@ fun MainHomeScreen(viewModel: MainViewModel) {
             when(val item = modelList[it]) {
                 is BannerVM -> BannerCard(presentationVM = item)  // item as BannerVM으로 스마트 캐스팅됨
                 is BannerListVM -> BannerListCard(presentationVM = item)
-                is ProductVM -> ProductCard(presentationVM = item)
-                is CarouselVM -> CarouselCard(presentationVM = item)
-                is RankingVM -> RankingCard(presentationVM = item)
+                is ProductVM -> ProductCard(navHostController = navController, presentationVM = item)
+                is CarouselVM -> CarouselCard(navHostController = navController, presentationVM = item)
+                is RankingVM -> RankingCard(navHostController = navController, presentationVM = item)
             }
         }
     }

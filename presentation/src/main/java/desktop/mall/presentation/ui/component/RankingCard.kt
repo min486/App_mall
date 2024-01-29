@@ -19,12 +19,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import desktop.mall.domain.model.Product
 import desktop.mall.presentation.R
 import desktop.mall.presentation.model.RankingVM
 
 @Composable
-fun RankingCard(presentationVM: RankingVM) {
+fun RankingCard(navHostController: NavHostController, presentationVM: RankingVM) {
     val scrollState = rememberLazyListState()
     val columnCount = presentationVM.model.productList.size / 2
 
@@ -45,10 +46,10 @@ fun RankingCard(presentationVM: RankingVM) {
                     modifier = Modifier.padding(end = 8.dp)
                 ) {
                     RankingProductCard(presentationVM.model.productList[it * 2]) { product ->
-                        presentationVM.openRankingProduct(product)
+                        presentationVM.openRankingProduct(navHostController, product)
                     }
                     RankingProductCard(presentationVM.model.productList[it * 2 + 1]) { product ->
-                        presentationVM.openRankingProduct(product)
+                        presentationVM.openRankingProduct(navHostController, product)
                     }
                 }
             }
