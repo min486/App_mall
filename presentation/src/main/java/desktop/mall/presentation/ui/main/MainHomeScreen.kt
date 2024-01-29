@@ -20,7 +20,7 @@ import desktop.mall.presentation.ui.component.RankingCard
 import desktop.mall.presentation.viewmodel.MainViewModel
 
 @Composable
-fun MainInsideScreen(viewModel: MainViewModel) {
+fun MainHomeScreen(viewModel: MainViewModel) {
     val modelList by viewModel.modelList.collectAsState(initial = listOf())
     val columnCount by viewModel.columnCount.collectAsState()
 

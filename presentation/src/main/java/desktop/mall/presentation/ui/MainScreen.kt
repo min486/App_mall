@@ -6,29 +6,24 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import desktop.mall.presentation.ui.main.MainInsideScreen
+import androidx.navigation.navArgument
+import com.google.gson.Gson
+import desktop.mall.domain.model.Category
+import desktop.mall.presentation.ui.category.CategoryScreen
+import desktop.mall.presentation.ui.main.MainCategoryScreen
+import desktop.mall.presentation.ui.main.MainHomeScreen
 import desktop.mall.presentation.viewmodel.MainViewModel
-
-sealed class MainNavItem(val route: String, val icon: ImageVector, val name: String) {
-    object Main : MainNavItem("Main", Icons.Filled.Home, "Main")
-    object Category : MainNavItem("Category", Icons.Filled.Star, "Category")
-    object MyPage : MainNavItem("MyPage", Icons.Filled.AccountBox, "MyPage")
-}
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -38,10 +33,16 @@ fun MainScreen() {
     val scaffoldState = rememberScaffoldState()
     val navController = rememberNavController()
 
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Scaffold(
         scaffoldState = scaffoldState,
         bottomBar = {
-            MainBottomNavBar(navController)
+            // main 화면일때만 BottomNavBar 노출될수있게
+            if (NavigationItem.MainNav.isMainRoute(currentRoute)) {
+                MainBottomNavBar(navController, currentRoute)
+            }
         }
     ) {
         MainNavScreen(viewModel = viewModel, navController = navController)
@@ -50,16 +51,14 @@ fun MainScreen() {
 }
 
 @Composable
-fun MainBottomNavBar(navController: NavController) {
+fun MainBottomNavBar(navController: NavController, currentRoute: String?) {
     val bottomNavigationItems = listOf(
-        MainNavItem.Main,
-        MainNavItem.Category,
-        MainNavItem.MyPage,
+        NavigationItem.MainNav.Home,
+        NavigationItem.MainNav.Category,
+        NavigationItem.MainNav.MyPage,
     )
 
     BottomNavigation {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
 
         bottomNavigationItems.forEach { item ->
             BottomNavigationItem(
@@ -83,15 +82,25 @@ fun MainBottomNavBar(navController: NavController) {
 
 @Composable
 fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
-    NavHost(navController = navController, startDestination = MainNavItem.Main.route) {
-        composable(MainNavItem.Main.route) {
-            MainInsideScreen(viewModel)
+    NavHost(navController = navController, startDestination = NavigationRouteName.MAIN_HOME) {
+        composable(NavigationRouteName.MAIN_HOME) {
+            MainHomeScreen(viewModel)
         }
-        composable(MainNavItem.Category.route) {
-            Text(text = "Category")
+        composable(NavigationRouteName.MAIN_CATEGORY) {
+            MainCategoryScreen(viewModel, navController)
         }
-        composable(MainNavItem.MyPage.route) {
+        composable(NavigationRouteName.MAIN_MY_PAGE) {
             Text(text = "MyPage")
+        }
+        composable(
+            NavigationRouteName.CATEGORY + "/{category}",
+            arguments = listOf(navArgument("category") { type = NavType.StringType })
+        ) {
+            val categoryString = it.arguments?.getString("category")
+            val category = Gson().fromJson(categoryString, Category::class.java)
+            if(category != null) {
+                CategoryScreen(category = category)
+            }
         }
     }
 }

@@ -391,5 +391,189 @@
         "isLike": false
       }
     ]
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 상의11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "1",
+      "categoryName": "상의"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 아우터11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "2",
+      "categoryName": "아우터"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 원피스11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "3",
+      "categoryName": "원피스"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 바지11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "4",
+      "categoryName": "바지"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 치마11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "5",
+      "categoryName": "치마"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 신발11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "6",
+      "categoryName": "신발"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 가방11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "7",
+      "categoryName": "가방"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
+  },
+  {
+    "type": "PRODUCT",
+    "productId": "71",
+    "productName": "샘플 패션잡화11",
+    "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554",
+    "price": {
+      "originPrice": 30000,
+      "finalPrice": 20000,
+      "salesStatus": "ON_DISCOUNT"
+    },
+    "category": {
+      "categoryId": "8",
+      "categoryName": "패션잡화"
+    },
+    "shop": {
+      "shopId": "1001",
+      "shopName": "패캠샵",
+      "imageUrl": "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOQILUntLBKqY9rCtdiiznuQYsm15KCzNKPQNf9xCNrhpkl7QonYiqCVuN8aAkYXA1DBgTOtjITxN5eZRmQVDXvxavm_=w3024-h1554"
+    },
+    "isNew": true,
+    "isFreeShipping": false,
+    "isLike": false
   }
 ]
