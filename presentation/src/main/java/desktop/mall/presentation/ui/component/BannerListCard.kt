@@ -20,17 +20,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import desktop.mall.domain.model.BannerList
 import desktop.mall.presentation.R
 import kotlinx.coroutines.delay
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.pager.HorizontalPager
+import desktop.mall.presentation.model.BannerListVM
 import desktop.mall.presentation.ui.theme.LightBlack
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
+fun BannerListCard(presentationVM: BannerListVM) {
     val pagerState = rememberPagerState()
 
     // 배너카드가 보일때, 카드의 view와 lifecycle을 동일하게 가져가는 scope
@@ -39,10 +39,10 @@ fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
         autoScrollInfinity(pagerState)
     }
 
-    HorizontalPager(count = model.imageList.size, state = pagerState) {
+    HorizontalPager(count = presentationVM.model.imageList.size, state = pagerState) {
         Card(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { onClick(model) }
+            onClick = { presentationVM.openBannerList(presentationVM.model.bannerId) }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.banner),
@@ -59,7 +59,7 @@ fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
                     .padding(start = 0.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
             ) {
                 Text(
-                    text = "${it + 1} / ${model.imageList.size}",
+                    text = "${it + 1} / ${presentationVM.model.imageList.size}",
                     color = Color.White,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))

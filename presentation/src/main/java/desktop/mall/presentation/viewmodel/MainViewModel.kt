@@ -6,22 +6,38 @@ import androidx.navigation.NavHostController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import desktop.mall.domain.model.Banner
 import desktop.mall.domain.model.BannerList
+import desktop.mall.domain.model.BaseModel
+import desktop.mall.domain.model.Carousel
 import desktop.mall.domain.model.Category
 import desktop.mall.domain.model.Product
+import desktop.mall.domain.model.Ranking
 import desktop.mall.domain.usecase.CategoryUseCase
 import desktop.mall.domain.usecase.MainUseCase
+import desktop.mall.presentation.delegate.BannerDelegate
+import desktop.mall.presentation.delegate.CategoryDelegate
+import desktop.mall.presentation.delegate.ProductDelegate
+import desktop.mall.presentation.model.BannerListVM
+import desktop.mall.presentation.model.BannerVM
+import desktop.mall.presentation.model.CarouselVM
+import desktop.mall.presentation.model.PresentationVM
+import desktop.mall.presentation.model.ProductVM
+import desktop.mall.presentation.model.RankingVM
 import desktop.mall.presentation.ui.NavigationRouteName
 import desktop.mall.presentation.utils.NavigationUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(mainUseCase: MainUseCase, categoryUseCase: CategoryUseCase) : ViewModel() {
+class MainViewModel @Inject constructor(
+    mainUseCase: MainUseCase,
+    categoryUseCase: CategoryUseCase
+) : ViewModel(), ProductDelegate, BannerDelegate, CategoryDelegate {
     private val _columnCount = MutableStateFlow(2)
     val columnCount: StateFlow<Int> = _columnCount
-    val modelList = mainUseCase.getModelList()
+    val modelList = mainUseCase.getModelList().map(::convertToPresentationVM)
     val categories = categoryUseCase.getCategories()
 
     fun openSearchForm() {
@@ -34,27 +50,27 @@ class MainViewModel @Inject constructor(mainUseCase: MainUseCase, categoryUseCas
         }
     }
 
-    fun openProduct(product: Product) {
-
+    override fun openProduct(product: Product) {
+        TODO("Not yet implemented")
     }
 
-    fun openCarouselProduct(product: Product) {
-
+    override fun openBanner(bannerId: String) {
+        TODO("Not yet implemented")
     }
 
-    fun openRankingProduct(product: Product) {
-
-    }
-
-    fun openBanner(banner: Banner) {
-
-    }
-
-    fun openBannerList(bannerList: BannerList) {
-
-    }
-
-    fun openCategory(navHostController: NavHostController, category: Category) {
+    override fun openCategory(navHostController: NavHostController, category: Category) {
         NavigationUtils.navigate(navHostController, NavigationRouteName.CATEGORY, category)
+    }
+
+    private fun convertToPresentationVM(list: List<BaseModel>): List<PresentationVM<out BaseModel>> {
+        return list.map { model ->
+            when (model) {
+                is Product -> ProductVM(model, this)
+                is Ranking -> RankingVM(model, this)
+                is Carousel -> CarouselVM(model, this)
+                is Banner -> BannerVM(model, this)
+                is BannerList -> BannerListVM(model, this)
+            }
+        }
     }
 }

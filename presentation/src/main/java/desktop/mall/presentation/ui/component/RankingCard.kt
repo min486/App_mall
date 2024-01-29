@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,17 +20,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import desktop.mall.domain.model.Product
-import desktop.mall.domain.model.Ranking
 import desktop.mall.presentation.R
+import desktop.mall.presentation.model.RankingVM
 
 @Composable
-fun RankingCard(model: Ranking, onClick: (Product) -> Unit) {
+fun RankingCard(presentationVM: RankingVM) {
     val scrollState = rememberLazyListState()
-    val columnCount = model.productList.size / 2
+    val columnCount = presentationVM.model.productList.size / 2
 
     Column {
         Text(
-            text = model.title,
+            text = presentationVM.model.title,
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 12.dp)
@@ -41,32 +44,43 @@ fun RankingCard(model: Ranking, onClick: (Product) -> Unit) {
                 Column(
                     modifier = Modifier.padding(end = 8.dp)
                 ) {
-                    RankingProductCard(model.productList[it * 2], onClick)
-                    RankingProductCard(model.productList[it * 2 + 1], onClick)
+                    RankingProductCard(presentationVM.model.productList[it * 2]) { product ->
+                        presentationVM.openRankingProduct(product)
+                    }
+                    RankingProductCard(presentationVM.model.productList[it * 2 + 1]) { product ->
+                        presentationVM.openRankingProduct(product)
+                    }
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RankingProductCard(product: Product, onClick: (Product) -> Unit) {
-    Column(
-        modifier = Modifier
-            .wrapContentSize()
-            .padding(bottom = 20.dp)
+    Card(
+        modifier = Modifier.padding(bottom = 20.dp),
+        elevation = 0.dp,
+        shape = RoundedCornerShape(0.dp),
+        onClick = { onClick(product) }
     ) {
-        Image(
-            painter = painterResource(
-                id = R.drawable.product_image
-            ),
-            contentDescription = "description",
-            contentScale = ContentScale.Crop,
+        Column(
             modifier = Modifier
-                .width(172.dp)
-                .aspectRatio(1f)
-        )
-        Text(text = product.productName)
-        Price(product = product)
+                .wrapContentSize()
+                //.padding(bottom = 20.dp)
+        ) {
+            Image(
+                painter = painterResource(R.drawable.product_image),
+                contentDescription = "description",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .width(172.dp)
+                    .aspectRatio(1f)
+                    .padding(bottom = 8.dp)
+            )
+            Text(text = product.productName)
+            Price(product = product)
+        }
     }
 }

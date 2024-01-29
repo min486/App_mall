@@ -30,10 +30,12 @@ import desktop.mall.domain.model.Price
 import desktop.mall.domain.model.SalesStatus
 import desktop.mall.domain.model.Shop
 import desktop.mall.presentation.R
+import desktop.mall.presentation.delegate.ProductDelegate
+import desktop.mall.presentation.model.ProductVM
 import desktop.mall.presentation.ui.theme.Purple40
 
 @Composable
-fun ProductCard(product: Product, onClick: (Product) -> Unit?) {
+fun ProductCard(presentationVM: ProductVM) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
@@ -61,21 +63,20 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit?) {
             Text(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
-                 text = product.shop.shopName
-                // text = product.productName
+                text = presentationVM.model.shop.shopName
             )
             Text(
                 fontSize = 14.sp,
-                text = product.productName
+                text = presentationVM.model.productName
             )
-            Price(product)
+            Price(presentationVM.model)
         }
     }
 }
 
 @Composable
 fun Price(product: Product) {
-    when(product.price.salesStatus) {
+    when (product.price.salesStatus) {
         SalesStatus.ON_SALE -> {
             Text(
                 fontSize = 18.sp,
@@ -83,6 +84,7 @@ fun Price(product: Product) {
                 text = "${product.price.originPrice}원"
             )
         }
+
         SalesStatus.ON_DISCOUNT -> {
             Text(
                 fontSize = 14.sp,
@@ -96,6 +98,7 @@ fun Price(product: Product) {
                 text = "${product.price.finalPrice}원"
             )
         }
+
         SalesStatus.SOLD_OUT -> {
             Text(
                 fontSize = 18.sp,
@@ -110,76 +113,29 @@ fun Price(product: Product) {
 @Composable
 private fun PreviewProductCard() {
     ProductCard(
-        product = Product(
-            productId = "1",
-            productName = "상품 이름",
-            imageUrl = "",
-            price = Price(
-                30000,
-                30000,
-                SalesStatus.ON_SALE
+        ProductVM(
+            model = Product(
+                productId = "1",
+                productName = "상품 이름",
+                imageUrl = "",
+                price = Price(
+                    30000,
+                    30000,
+                    SalesStatus.ON_SALE
+                ),
+                category = Category.Top,
+                shop = Shop(
+                    "1",
+                    "샵 이름",
+                    "",
+                ),
+                isNew = false,
+                isFreeShipping = false
             ),
-            category = Category.Top,
-            shop = Shop(
-                "1",
-                "샵 이름",
-                "",
-            ),
-            isNew = false,
-            isFreeShipping = false
+            object : ProductDelegate {
+                override fun openProduct(product: Product) {
+                }
+            }
         )
-    ) {
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewProductCardDiscount() {
-    ProductCard(
-        product = Product(
-            productId = "1",
-            productName = "상품 이름",
-            imageUrl = "",
-            price = Price(
-                30000,
-                20000,
-                SalesStatus.ON_DISCOUNT
-            ),
-            category = Category.Top,
-            shop = Shop(
-                "1",
-                "샵 이름",
-                "",
-            ),
-            isNew = false,
-            isFreeShipping = false
-        )
-    ) {
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewProductCardSoldout() {
-    ProductCard(
-        product = Product(
-            productId = "1",
-            productName = "상품 이름",
-            imageUrl = "",
-            price = Price(
-                30000,
-                20000,
-                SalesStatus.SOLD_OUT
-            ),
-            category = Category.Top,
-            shop = Shop(
-                "1",
-                "샵 이름",
-                "",
-            ),
-            isNew = false,
-            isFreeShipping = false
-        )
-    ) {
-    }
+    )
 }

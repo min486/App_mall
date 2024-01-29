@@ -1,6 +1,6 @@
 package desktop.mall.domain.model
 
-abstract class BaseModel {
+sealed class BaseModel {
     abstract val type: ModelType
 }
 

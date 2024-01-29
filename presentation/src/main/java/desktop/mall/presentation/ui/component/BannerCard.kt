@@ -13,19 +13,19 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import desktop.mall.domain.model.Banner
 import desktop.mall.presentation.R
+import desktop.mall.presentation.model.BannerVM
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BannerCard(model: Banner, onClick: (Banner) -> Unit) {
+fun BannerCard(presentationVM: BannerVM) {
     Card(
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
             .shadow(20.dp),
-        onClick = { onClick(model) }
+        onClick = { presentationVM.openBanner(presentationVM.model.bannerId) }  // 제네릭을 통해서 bannerId 쓸 수 있게함
     ) {
         Image(painter = painterResource(id = R.drawable.product_image),
             contentDescription = "description",

@@ -6,12 +6,12 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import desktop.mall.domain.model.Banner
-import desktop.mall.domain.model.BannerList
-import desktop.mall.domain.model.Carousel
 import desktop.mall.domain.model.ModelType
-import desktop.mall.domain.model.Product
-import desktop.mall.domain.model.Ranking
+import desktop.mall.presentation.model.BannerListVM
+import desktop.mall.presentation.model.BannerVM
+import desktop.mall.presentation.model.CarouselVM
+import desktop.mall.presentation.model.ProductVM
+import desktop.mall.presentation.model.RankingVM
 import desktop.mall.presentation.ui.component.BannerCard
 import desktop.mall.presentation.ui.component.BannerListCard
 import desktop.mall.presentation.ui.component.CarouselCard
@@ -27,26 +27,16 @@ fun MainHomeScreen(viewModel: MainViewModel) {
     LazyVerticalGrid(columns = GridCells.Fixed(columnCount)) {
         items(modelList.size, span = { index ->
             val item = modelList[index]
-            val spanCount = getSpanCountByType(item.type, columnCount)
+            val spanCount = getSpanCountByType(item.model.type, columnCount)
 
             GridItemSpan(spanCount)
         }) {
             when(val item = modelList[it]) {
-                is BannerList -> BannerListCard(model = item) { model ->
-                    viewModel.openBannerList(model)
-                }
-                is Banner -> BannerCard(model = item) { model ->  // item as Banner로 스마트 캐스팅됨
-                    viewModel.openBanner(model)
-                }
-                is Product -> ProductCard(product = item) { model ->
-                    viewModel.openProduct(model)
-                }
-                is Carousel -> CarouselCard(model = item) { model ->
-                    viewModel.openCarouselProduct(model)
-                }
-                is Ranking -> RankingCard(model = item) { model ->
-                    viewModel.openRankingProduct(model)
-                }
+                is BannerVM -> BannerCard(presentationVM = item)  // item as BannerVM으로 스마트 캐스팅됨
+                is BannerListVM -> BannerListCard(presentationVM = item)
+                is ProductVM -> ProductCard(presentationVM = item)
+                is CarouselVM -> CarouselCard(presentationVM = item)
+                is RankingVM -> RankingCard(presentationVM = item)
             }
         }
     }
