@@ -9,12 +9,13 @@ import desktop.mall.domain.model.BaseModel
 import desktop.mall.domain.model.Product
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import java.io.InputStreamReader
 import javax.inject.Inject
 
 class ProductDataSource @Inject constructor(@ApplicationContext private val context: Context) {
 
-    fun getProducts(): Flow<List<BaseModel>> = flow {
+    fun getHomeComponents(): Flow<List<BaseModel>> = flow {
         val inputStream = context.assets.open("product_list.json")
         val inputStreamReader = InputStreamReader(inputStream)
         val jsonString = inputStreamReader.readText()
@@ -28,4 +29,7 @@ class ProductDataSource @Inject constructor(@ApplicationContext private val cont
                 .fromJson(jsonString, type)
         )
     }
+
+    // 검색쪽에서 사용하기 위해 Product만 가져오기
+    fun getProducts(): Flow<List<Product>> = getHomeComponents().map { it.filterIsInstance<Product>() }
 }

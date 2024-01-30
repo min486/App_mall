@@ -4,8 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,11 +24,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import desktop.mall.domain.model.Category
-import desktop.mall.domain.model.Product
 import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.main.MainCategoryScreen
 import desktop.mall.presentation.ui.main.MainHomeScreen
 import desktop.mall.presentation.ui.product_detail.ProductDetailScreen
+import desktop.mall.presentation.ui.search.SearchScreen
 import desktop.mall.presentation.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -39,6 +43,11 @@ fun MainScreen() {
     val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
+        topBar = {
+            if (NavigationItem.MainNav.isMainRoute(currentRoute)) {
+                MainHeader(viewModel = viewModel, navController = navController)
+            }
+         },
         scaffoldState = scaffoldState,
         bottomBar = {
             // main 화면일때만 BottomNavBar 노출될수있게
@@ -50,6 +59,20 @@ fun MainScreen() {
         MainNavScreen(viewModel = viewModel, navController = navController)
     }
 
+}
+
+@Composable
+fun MainHeader(viewModel: MainViewModel, navController: NavHostController) {
+    TopAppBar(
+        title = { Text("My App") },
+        actions = {
+            IconButton(onClick = {
+                viewModel.openSearchForm(navController)
+            }) {
+                Icon(Icons.Filled.Search, "description")
+            }
+        }
+    )
 }
 
 @Composable
@@ -112,6 +135,9 @@ fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
             if (productString != null) {
                 ProductDetailScreen(productId = productString)
             }
+        }
+        composable(NavigationRouteName.SEARCH) {
+            SearchScreen(navController)
         }
     }
 }

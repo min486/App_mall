@@ -8,6 +8,6 @@ import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(private val dataSource: ProductDataSource) : MainRepository {
     override fun getModelList(): Flow<List<BaseModel>> {
-        return dataSource.getProducts()
+        return dataSource.getHomeComponents()
     }
 }

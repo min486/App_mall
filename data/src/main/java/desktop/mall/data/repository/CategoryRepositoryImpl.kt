@@ -21,7 +21,7 @@ class CategoryRepositoryImpl @Inject constructor(private val dataSource: Product
     }
 
     override fun getProductsByCategory(category: Category): Flow<List<Product>> {
-        return dataSource.getProducts().map { list ->  // 아래 만들어진 리스트로 map을 통해 flow로 반환
+        return dataSource.getHomeComponents().map { list ->  // 아래 만들어진 리스트로 map을 통해 flow로 반환
             list.filterIsInstance<Product>()
                 .filter { product ->
                     product.category.categoryId == category.categoryId  // Product만 가져와서 카테고리 같은거만 필터 걸기
