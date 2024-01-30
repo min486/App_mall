@@ -1,12 +1,14 @@
 package desktop.mall.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import desktop.mall.domain.model.Product
 import desktop.mall.domain.usecase.ProductDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +25,11 @@ class ProductDetailViewModel @Inject constructor(private val useCase: ProductDet
     }
 
     // 장바구니 추가 기능
-    fun addCart(productId: String) {
+    fun addBasket(product: Product?) {
+        product ?: return
 
+        viewModelScope.launch {
+            useCase.addBasket(product)
+        }
     }
 }

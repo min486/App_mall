@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -28,9 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import desktop.mall.domain.model.Product
 import desktop.mall.presentation.R
 import desktop.mall.presentation.ui.theme.Purple40
+import desktop.mall.presentation.utils.NumberUtils
 import desktop.mall.presentation.viewmodel.ProductDetailViewModel
 
 @Composable
@@ -76,11 +75,11 @@ fun ProductDetailScreen(productId: String, viewModel: ProductDetailViewModel = h
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "${product?.price?.finalPrice}",
+                    //text = "${product?.price?.finalPrice}",
+                    text = "${NumberUtils.numberFormatPrice(product?.price?.finalPrice)}",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.SemiBold
                 )
-                // 원 추가
 
             }
         }
@@ -96,7 +95,7 @@ fun ProductDetailScreen(productId: String, viewModel: ProductDetailViewModel = h
             )
 
             Button(
-                onClick = { viewModel.addCart(productId) },
+                onClick = { viewModel.addBasket(product) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Purple40,
                     contentColor = Color.White
