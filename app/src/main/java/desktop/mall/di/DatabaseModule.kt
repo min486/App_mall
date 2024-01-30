@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import desktop.mall.data.db.AppDatabase
+import desktop.mall.data.db.dao.HeartDao
 import desktop.mall.data.db.dao.SearchDao
 import javax.inject.Singleton
 
@@ -30,5 +31,11 @@ object DatabaseModule {
     @Singleton
     fun provideSearchDao(database: AppDatabase): SearchDao {
         return database.searchDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHeartDao(database: AppDatabase): HeartDao {
+        return database.heartDao()
     }
 }

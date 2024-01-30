@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    mainUseCase: MainUseCase,
+    private val mainUseCase: MainUseCase,
     categoryUseCase: CategoryUseCase
 ) : ViewModel(), ProductDelegate, BannerDelegate, CategoryDelegate {
     private val _columnCount = MutableStateFlow(2)
@@ -52,6 +52,12 @@ class MainViewModel @Inject constructor(
 
     override fun openProduct(navHostController: NavHostController, product: Product) {
         NavigationUtils.navigate(navHostController, NavigationRouteName.PRODUCT_DETAIL, product)
+    }
+
+    override fun likeProduct(product: Product) {
+        viewModelScope.launch {
+            mainUseCase.likeProduct(product)
+        }
     }
 
     override fun openBanner(bannerId: String) {

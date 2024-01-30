@@ -4,14 +4,21 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,15 +72,24 @@ fun ProductCard(navHostController: NavHostController, presentationVM: ProductVM)
                     .fillMaxWidth()
                     .aspectRatio(1f)
             )
-            Text(
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                text = presentationVM.model.shop.shopName
-            )
-            Text(
-                fontSize = 14.sp,
-                text = presentationVM.model.productName
-            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    fontSize = 14.sp,
+                    text = presentationVM.model.productName
+                )
+                IconButton(onClick = { presentationVM.likeProduct(presentationVM.model) }) {
+                    Icon(
+                        if(presentationVM.model.isLike) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                        "description"
+                    )
+                }
+            }
+
             Price(presentationVM.model)
         }
     }
@@ -136,10 +152,14 @@ private fun PreviewProductCard() {
                     "",
                 ),
                 isNew = false,
-                isFreeShipping = false
+                isFreeShipping = false,
+                isLike = false
             ),
             object : ProductDelegate {
                 override fun openProduct(navHostController: NavHostController, product: Product) {
+                }
+
+                override fun likeProduct(product: Product) {
                 }
             }
         )

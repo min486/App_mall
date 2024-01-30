@@ -10,4 +10,8 @@ class CarouselVM(model: Carousel, private val productDelegate: ProductDelegate) 
     fun openCarouselProduct(navHostController: NavHostController, product: Product) {
         productDelegate.openProduct(navHostController, product)
     }
+
+    fun likeProduct(product: Product) {
+        productDelegate.likeProduct(product)
+    }
 }

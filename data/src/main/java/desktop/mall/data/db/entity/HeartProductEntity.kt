@@ -21,6 +21,7 @@ data class HeartProductEntity(
     val shop: Shop,
     val isNew: Boolean,
     val isFreeShipping: Boolean,
+    val isLike: Boolean
 )
 
 fun HeartProductEntity.toDomainModel(): Product {
@@ -32,6 +33,21 @@ fun HeartProductEntity.toDomainModel(): Product {
         category = category,
         shop = shop,
         isNew = isNew,
-        isFreeShipping = isFreeShipping
+        isFreeShipping = isFreeShipping,
+        isLike = isLike
+    )
+}
+
+fun Product.toHeartProductEntity(): HeartProductEntity {
+    return HeartProductEntity(
+        productId = productId,
+        productName = productName,
+        imageUrl = imageUrl,
+        price = price,
+        category = category,
+        shop = shop,
+        isNew = isNew,
+        isFreeShipping = isFreeShipping,
+        isLike = isLike
     )
 }

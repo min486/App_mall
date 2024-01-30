@@ -3,6 +3,7 @@ package desktop.mall.presentation.ui.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +52,7 @@ fun CarouselCard(navHostController: NavHostController, presentationVM: CarouselV
                 .wrapContentHeight()
         ) {
             items(presentationVM.model.productList.size) {
-                CarouselProductCard(product = presentationVM.model.productList[it]) { product ->
+                CarouselProductCard(product = presentationVM.model.productList[it], presentationVM) { product ->
                     presentationVM.openCarouselProduct(navHostController, product)
                 }
             }
@@ -56,11 +62,11 @@ fun CarouselCard(navHostController: NavHostController, presentationVM: CarouselV
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun CarouselProductCard(product: Product, onClick: (Product) -> Unit) {
+private fun CarouselProductCard(product: Product, presentationVM: CarouselVM, onClick: (Product) -> Unit) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
-            .width(150.dp)
+            .width(200.dp)
             .wrapContentHeight()
             .padding(10.dp),
         onClick = { onClick(product) }
@@ -81,10 +87,24 @@ private fun CarouselProductCard(product: Product, onClick: (Product) -> Unit) {
                     .fillMaxWidth()
                     .aspectRatio(1f)
             )
-            Text(
-                fontSize = 14.sp,
-                text = product.productName
-            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    fontSize = 14.sp,
+                    text = product.productName
+                )
+                IconButton(onClick = { presentationVM.likeProduct(product) }) {
+                    Icon(
+                        if(product.isLike) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                        "description"
+                    )
+                }
+            }
+
             Price(product)
         }
     }

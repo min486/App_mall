@@ -13,4 +13,8 @@ class RankingVM(model: Ranking, private val productDelegate: ProductDelegate) : 
         productDelegate.openProduct(navHostController, product)  // 주입받아서 사용하면 RankingVM이라는 인스턴스를 가지고 있는
                                                                  // composable이나 screen에서는 openRankingProduct만 사용 가능
     }
+
+    fun likeProduct(product: Product) {
+        productDelegate.likeProduct(product)
+    }
 }

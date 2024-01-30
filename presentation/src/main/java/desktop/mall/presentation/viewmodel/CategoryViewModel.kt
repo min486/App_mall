@@ -1,6 +1,7 @@
 package desktop.mall.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import desktop.mall.domain.model.Category
@@ -13,6 +14,7 @@ import desktop.mall.presentation.utils.NavigationUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +31,12 @@ class CategoryViewModel @Inject constructor(private val useCase: CategoryUseCase
 
     override fun openProduct(navHostController: NavHostController, product: Product) {
         NavigationUtils.navigate(navHostController, NavigationRouteName.PRODUCT_DETAIL, product)
+    }
+
+    override fun likeProduct(product: Product) {
+        viewModelScope.launch {
+            useCase.likeProduct(product)
+        }
     }
 
     private fun convertToPresentationVM(list: List<Product>): List<ProductVM> {
