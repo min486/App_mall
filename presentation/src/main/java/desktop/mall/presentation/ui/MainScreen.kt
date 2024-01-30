@@ -27,6 +27,7 @@ import desktop.mall.domain.model.Category
 import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.main.MainCategoryScreen
 import desktop.mall.presentation.ui.main.MainHomeScreen
+import desktop.mall.presentation.ui.main.MainLikeScreen
 import desktop.mall.presentation.ui.product_detail.ProductDetailScreen
 import desktop.mall.presentation.ui.search.SearchScreen
 import desktop.mall.presentation.viewmodel.MainViewModel
@@ -80,6 +81,7 @@ fun MainBottomNavBar(navController: NavController, currentRoute: String?) {
     val bottomNavigationItems = listOf(
         NavigationItem.MainNav.Home,
         NavigationItem.MainNav.Category,
+        NavigationItem.MainNav.Like,
         NavigationItem.MainNav.MyPage,
     )
 
@@ -116,6 +118,9 @@ fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
         }
         composable(NavigationRouteName.MAIN_MY_PAGE) {
             Text(text = "MyPage")
+        }
+        composable(NavigationRouteName.MAIN_LIKE) {
+            MainLikeScreen(navHostController = navController, viewModel = viewModel)
         }
         composable(
             NavigationRouteName.CATEGORY + "/{category}",

@@ -41,7 +41,7 @@ class CategoryRepositoryImpl @Inject constructor(
         if (product.isLike) {
             heartDao.delete(product.productId)
         } else {
-            heartDao.insert(product.toHeartProductEntity())
+            heartDao.insert(product.toHeartProductEntity().copy(isLike = true))
         }
     }
 

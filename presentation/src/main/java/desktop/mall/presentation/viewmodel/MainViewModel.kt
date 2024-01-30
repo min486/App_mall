@@ -12,6 +12,7 @@ import desktop.mall.domain.model.Category
 import desktop.mall.domain.model.Product
 import desktop.mall.domain.model.Ranking
 import desktop.mall.domain.usecase.CategoryUseCase
+import desktop.mall.domain.usecase.LikeUseCase
 import desktop.mall.domain.usecase.MainUseCase
 import desktop.mall.presentation.delegate.BannerDelegate
 import desktop.mall.presentation.delegate.CategoryDelegate
@@ -33,12 +34,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val mainUseCase: MainUseCase,
-    categoryUseCase: CategoryUseCase
+    categoryUseCase: CategoryUseCase,
+    likeUseCase: LikeUseCase
 ) : ViewModel(), ProductDelegate, BannerDelegate, CategoryDelegate {
     private val _columnCount = MutableStateFlow(2)
     val columnCount: StateFlow<Int> = _columnCount
     val modelList = mainUseCase.getModelList().map(::convertToPresentationVM)
     val categories = categoryUseCase.getCategories()
+    // 좋아요 누른 Product 리스트(데이터들)를 가져옴
+    val likeProducts = likeUseCase.getLikeProducts().map(::convertToPresentationVM)
 
     fun openSearchForm(navHostController: NavHostController) {
         NavigationUtils.navigate(navHostController, NavigationRouteName.SEARCH)

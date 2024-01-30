@@ -5,10 +5,12 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import desktop.mall.data.repository.CategoryRepositoryImpl
+import desktop.mall.data.repository.LikeRepositoryImpl
 import desktop.mall.data.repository.MainRepositoryImpl
 import desktop.mall.data.repository.ProductDetailRepositoryImpl
 import desktop.mall.data.repository.SearchRepositoryImpl
 import desktop.mall.domain.repository.CategoryRepository
+import desktop.mall.domain.repository.LikeRepository
 import desktop.mall.domain.repository.MainRepository
 import desktop.mall.domain.repository.ProductDetailRepository
 import desktop.mall.domain.repository.SearchRepository
@@ -33,4 +35,8 @@ interface DataModule {
     @Binds
     @Singleton
     fun bindSearchRepository(searchRepositoryImpl: SearchRepositoryImpl): SearchRepository
+
+    @Binds
+    @Singleton
+    fun bindLikeRepository(likeRepositoryImpl: LikeRepositoryImpl): LikeRepository
 }
