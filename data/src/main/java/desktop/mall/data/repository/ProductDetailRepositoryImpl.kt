@@ -12,8 +12,7 @@ import javax.inject.Inject
 class ProductDetailRepositoryImpl @Inject constructor(
     private val dataSource: ProductDataSource,
     private val basketDao: BasketDao
-) :
-    ProductDetailRepository {
+) : ProductDetailRepository {
 
     override fun getProductDetail(productId: String): Flow<Product> {
         return dataSource.getHomeComponents().map { products ->

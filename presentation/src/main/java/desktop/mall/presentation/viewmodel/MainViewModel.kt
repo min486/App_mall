@@ -48,6 +48,10 @@ class MainViewModel @Inject constructor(
         NavigationUtils.navigate(navHostController, NavigationRouteName.SEARCH)
     }
 
+    fun openBasket(navHostController: NavHostController) {
+        NavigationUtils.navigate(navHostController, NavigationRouteName.BASKET)
+    }
+
     fun updateColumnCount(count: Int) {
         viewModelScope.launch {
             _columnCount.emit(count)

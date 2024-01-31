@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import desktop.mall.domain.model.Category
+import desktop.mall.presentation.ui.basket.BasketScreen
 import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.main.MainCategoryScreen
 import desktop.mall.presentation.ui.main.MainHomeScreen
@@ -71,6 +73,12 @@ fun MainHeader(viewModel: MainViewModel, navController: NavHostController) {
                 viewModel.openSearchForm(navController)
             }) {
                 Icon(Icons.Filled.Search, "description")
+            }
+
+            IconButton(onClick = {
+                viewModel.openBasket(navController)
+            }) {
+                Icon(Icons.Filled.ShoppingCart, "description")
             }
         }
     )
@@ -121,6 +129,9 @@ fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
         }
         composable(NavigationRouteName.MAIN_LIKE) {
             MainLikeScreen(navHostController = navController, viewModel = viewModel)
+        }
+        composable(NavigationRouteName.BASKET) {
+            BasketScreen()
         }
         composable(
             NavigationRouteName.CATEGORY + "/{category}",
