@@ -23,7 +23,10 @@ import desktop.mall.presentation.model.CarouselVM
 import desktop.mall.presentation.model.PresentationVM
 import desktop.mall.presentation.model.ProductVM
 import desktop.mall.presentation.model.RankingVM
-import desktop.mall.presentation.ui.NavigationRouteName
+import desktop.mall.presentation.ui.BasketNav
+import desktop.mall.presentation.ui.CategoryNav
+import desktop.mall.presentation.ui.ProductDetailNav
+import desktop.mall.presentation.ui.SearchNav
 import desktop.mall.presentation.utils.NavigationUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,11 +48,11 @@ class MainViewModel @Inject constructor(
     val likeProducts = likeUseCase.getLikeProducts().map(::convertToPresentationVM)
 
     fun openSearchForm(navHostController: NavHostController) {
-        NavigationUtils.navigate(navHostController, NavigationRouteName.SEARCH)
+        NavigationUtils.navigate(navHostController, SearchNav.route)
     }
 
     fun openBasket(navHostController: NavHostController) {
-        NavigationUtils.navigate(navHostController, NavigationRouteName.BASKET)
+        NavigationUtils.navigate(navHostController, BasketNav.route)
     }
 
     fun updateColumnCount(count: Int) {
@@ -59,7 +62,8 @@ class MainViewModel @Inject constructor(
     }
 
     override fun openProduct(navHostController: NavHostController, product: Product) {
-        NavigationUtils.navigate(navHostController, NavigationRouteName.PRODUCT_DETAIL, product)
+//        NavigationUtils.navigate(navHostController, NavigationRouteName.PRODUCT_DETAIL, product)
+        NavigationUtils.navigate(navHostController, ProductDetailNav.navigateWithArg(product.productId))
     }
 
     override fun likeProduct(product: Product) {
@@ -69,11 +73,12 @@ class MainViewModel @Inject constructor(
     }
 
     override fun openBanner(bannerId: String) {
-        TODO("Not yet implemented")
+
     }
 
     override fun openCategory(navHostController: NavHostController, category: Category) {
-        NavigationUtils.navigate(navHostController, NavigationRouteName.CATEGORY, category)
+//        NavigationUtils.navigate(navHostController, NavigationRouteName.CATEGORY, category)
+        NavigationUtils.navigate(navHostController, CategoryNav.navigateWithArg(category))
     }
 
     private fun convertToPresentationVM(list: List<BaseModel>): List<PresentationVM<out BaseModel>> {

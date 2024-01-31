@@ -9,7 +9,7 @@ import desktop.mall.domain.model.SearchKeyword
 import desktop.mall.domain.usecase.SearchUseCase
 import desktop.mall.presentation.delegate.ProductDelegate
 import desktop.mall.presentation.model.ProductVM
-import desktop.mall.presentation.ui.NavigationRouteName
+import desktop.mall.presentation.ui.ProductDetailNav
 import desktop.mall.presentation.utils.NavigationUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,7 +40,7 @@ class SearchViewModel @Inject constructor(private val useCase: SearchUseCase) :
     }
 
     override fun openProduct(navHostController: NavHostController, product: Product) {
-        NavigationUtils.navigate(navHostController, NavigationRouteName.PRODUCT_DETAIL, product)
+        NavigationUtils.navigate(navHostController, ProductDetailNav.navigateWithArg(product.productId))
     }
 
     override fun likeProduct(product: Product) {

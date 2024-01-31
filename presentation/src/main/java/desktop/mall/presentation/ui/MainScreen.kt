@@ -9,22 +9,18 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.google.gson.Gson
-import desktop.mall.domain.model.Category
 import desktop.mall.presentation.ui.basket.BasketScreen
 import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.main.MainCategoryScreen
@@ -32,6 +28,7 @@ import desktop.mall.presentation.ui.main.MainHomeScreen
 import desktop.mall.presentation.ui.main.MainLikeScreen
 import desktop.mall.presentation.ui.product_detail.ProductDetailScreen
 import desktop.mall.presentation.ui.search.SearchScreen
+import desktop.mall.presentation.utils.NavigationUtils
 import desktop.mall.presentation.viewmodel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -47,69 +44,75 @@ fun MainScreen() {
 
     Scaffold(
         topBar = {
-            if (NavigationItem.MainNav.isMainRoute(currentRoute)) {
-                MainHeader(viewModel = viewModel, navController = navController)
-            }
-         },
+            //if (MainNav.isMainRoute(currentRoute)) {
+            MainHeader(viewModel = viewModel, navController = navController, currentRoute)
+            //}
+        },
         scaffoldState = scaffoldState,
         bottomBar = {
             // main 화면일때만 BottomNavBar 노출될수있게
-            if (NavigationItem.MainNav.isMainRoute(currentRoute)) {
+            if (MainNav.isMainRoute(currentRoute)) {
                 MainBottomNavBar(navController, currentRoute)
             }
         }
     ) {
         MainNavScreen(viewModel = viewModel, navController = navController)
     }
-
 }
 
 @Composable
-fun MainHeader(viewModel: MainViewModel, navController: NavHostController) {
+fun MainHeader(viewModel: MainViewModel, navController: NavHostController, currentRoute: String?) {
     TopAppBar(
-        title = { Text("My App") },
-        actions = {
-            IconButton(onClick = {
-                viewModel.openSearchForm(navController)
-            }) {
-                Icon(Icons.Filled.Search, "description")
+        title = { Text(NavigationUtils.findDestination(currentRoute).title) },
+        navigationIcon = if (!MainNav.isMainRoute(currentRoute)) {
+            {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(Icons.Filled.ArrowBack, "description")
+                }
             }
+        } else {
+            null
+        },
+        actions = {
+            if (MainNav.isMainRoute(currentRoute)) {
+                IconButton(onClick = {
+                    viewModel.openSearchForm(navController)
+                }) {
+                    Icon(Icons.Filled.Search, "description")
+                }
 
-            IconButton(onClick = {
-                viewModel.openBasket(navController)
-            }) {
-                Icon(Icons.Filled.ShoppingCart, "description")
+                IconButton(onClick = {
+                    viewModel.openBasket(navController)
+                }) {
+                    Icon(Icons.Filled.ShoppingCart, "description")
+                }
             }
         }
     )
 }
 
 @Composable
-fun MainBottomNavBar(navController: NavController, currentRoute: String?) {
+fun MainBottomNavBar(navController: NavHostController, currentRoute: String?) {
     val bottomNavigationItems = listOf(
-        NavigationItem.MainNav.Home,
-        NavigationItem.MainNav.Category,
-        NavigationItem.MainNav.Like,
-        NavigationItem.MainNav.MyPage,
+        MainNav.Home,
+        MainNav.Category,
+        MainNav.Like,
+        MainNav.MyPage,
     )
 
     BottomNavigation {
 
         bottomNavigationItems.forEach { item ->
             BottomNavigationItem(
+                icon = { Icon(item.icon, item.route) },
                 selected = currentRoute == item.route,
                 onClick = {
-                    navController.navigate(item.route) {
-                        navController.graph.startDestinationRoute?.let {
-                            popUpTo(it) {
-                                saveState = true
-                            }
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                },
-                icon = { Icon(item.icon, item.route) }
+                    // 하단 탭 전환
+                    NavigationUtils.navigate(
+                        navController, item.route,
+                        navController.graph.startDestinationRoute
+                    )
+                }
             )
         }
     }
@@ -117,43 +120,82 @@ fun MainBottomNavBar(navController: NavController, currentRoute: String?) {
 
 @Composable
 fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
-    NavHost(navController = navController, startDestination = NavigationRouteName.MAIN_HOME) {
-        composable(NavigationRouteName.MAIN_HOME) {
+    NavHost(navController = navController, startDestination = MainNav.Home.route) {
+        composable(
+            route = MainNav.Home.route,
+            deepLinks = MainNav.Home.deepLinks
+        ) {
             MainHomeScreen(navController, viewModel)
         }
-        composable(NavigationRouteName.MAIN_CATEGORY) {
+        composable(
+            route = MainNav.Category.route,
+            deepLinks = MainNav.Category.deepLinks
+        ) {
             MainCategoryScreen(viewModel, navController)
         }
-        composable(NavigationRouteName.MAIN_MY_PAGE) {
+        composable(
+            route = MainNav.MyPage.route,
+            deepLinks = MainNav.MyPage.deepLinks
+        ) {
             Text(text = "MyPage")
         }
-        composable(NavigationRouteName.MAIN_LIKE) {
+        composable(
+            route = MainNav.Like.route,
+            deepLinks = MainNav.Like.deepLinks
+        ) {
             MainLikeScreen(navHostController = navController, viewModel = viewModel)
         }
-        composable(NavigationRouteName.BASKET) {
+        composable(
+            route = BasketNav.route,
+            deepLinks = BasketNav.deepLinks
+        ) {
             BasketScreen()
         }
         composable(
-            NavigationRouteName.CATEGORY + "/{category}",
-            arguments = listOf(navArgument("category") { type = NavType.StringType })
+            route = SearchNav.route,
+            deepLinks = SearchNav.deepLinks
         ) {
-            val categoryString = it.arguments?.getString("category")
-            val category = Gson().fromJson(categoryString, Category::class.java)
+            SearchScreen(navController)
+        }
+//        composable(
+//            NavigationRouteName.CATEGORY + "/{category}",
+//            arguments = listOf(navArgument("category") { type = NavType.StringType })
+//        ) {
+//            val categoryString = it.arguments?.getString("category")
+//            val category = Gson().fromJson(categoryString, Category::class.java)
+//            if (category != null) {
+//                CategoryScreen(category = category, navHostController = navController)
+//            }
+//        }
+        composable(
+            route = CategoryNav.routeWithArgName(),
+            arguments = CategoryNav.arguments,
+            deepLinks = CategoryNav.deepLinks
+        ) {
+            val category = CategoryNav.findArgument(it)
             if (category != null) {
                 CategoryScreen(category = category, navHostController = navController)
             }
         }
         composable(
-            NavigationRouteName.PRODUCT_DETAIL + "/{product}",
-            arguments = listOf(navArgument("product") { type = NavType.StringType })
+            route = ProductDetailNav.routeWithArgName(),
+            arguments = ProductDetailNav.arguments,
+            deepLinks = ProductDetailNav.deepLinks
         ) {
-            val productString = it.arguments?.getString("product")
+            val productString = ProductDetailNav.findArgument(it)
             if (productString != null) {
                 ProductDetailScreen(productId = productString)
             }
         }
-        composable(NavigationRouteName.SEARCH) {
-            SearchScreen(navController)
-        }
+//        composable(
+//            NavigationRouteName.PRODUCT_DETAIL + "/{product}",
+//            arguments = listOf(navArgument("product") { type = NavType.StringType })
+//        ) {
+//            val productString = it.arguments?.getString("product")
+//            if (productString != null) {
+//                ProductDetailScreen(productId = productString)
+//            }
+//        }
+
     }
 }
