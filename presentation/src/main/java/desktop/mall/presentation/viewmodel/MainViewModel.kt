@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import dagger.hilt.android.lifecycle.HiltViewModel
+import desktop.mall.domain.model.AccountInfo
 import desktop.mall.domain.model.Banner
 import desktop.mall.domain.model.BannerList
 import desktop.mall.domain.model.BaseModel
@@ -11,6 +12,7 @@ import desktop.mall.domain.model.Carousel
 import desktop.mall.domain.model.Category
 import desktop.mall.domain.model.Product
 import desktop.mall.domain.model.Ranking
+import desktop.mall.domain.usecase.AccountUsecase
 import desktop.mall.domain.usecase.CategoryUseCase
 import desktop.mall.domain.usecase.LikeUseCase
 import desktop.mall.domain.usecase.MainUseCase
@@ -38,7 +40,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val mainUseCase: MainUseCase,
     categoryUseCase: CategoryUseCase,
-    likeUseCase: LikeUseCase
+    likeUseCase: LikeUseCase,
+    private val accountUseCase: AccountUsecase
 ) : ViewModel(), ProductDelegate, BannerDelegate, CategoryDelegate {
     private val _columnCount = MutableStateFlow(2)
     val columnCount: StateFlow<Int> = _columnCount
@@ -46,6 +49,7 @@ class MainViewModel @Inject constructor(
     val categories = categoryUseCase.getCategories()
     // 좋아요 누른 Product 리스트(데이터들)를 가져옴
     val likeProducts = likeUseCase.getLikeProducts().map(::convertToPresentationVM)
+    val accountInfo = accountUseCase.getAccountInfo()
 
     fun openSearchForm(navHostController: NavHostController) {
         NavigationUtils.navigate(navHostController, SearchNav.route)
@@ -53,6 +57,18 @@ class MainViewModel @Inject constructor(
 
     fun openBasket(navHostController: NavHostController) {
         NavigationUtils.navigate(navHostController, BasketNav.route)
+    }
+
+    fun singIn(accountInfo: AccountInfo) {
+        viewModelScope.launch {
+            accountUseCase.signIn(accountInfo)
+        }
+    }
+
+    fun singOut() {
+        viewModelScope.launch {
+            accountUseCase.singOut()
+        }
     }
 
     fun updateColumnCount(count: Int) {

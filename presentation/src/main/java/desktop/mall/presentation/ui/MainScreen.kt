@@ -26,6 +26,7 @@ import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.main.MainCategoryScreen
 import desktop.mall.presentation.ui.main.MainHomeScreen
 import desktop.mall.presentation.ui.main.MainLikeScreen
+import desktop.mall.presentation.ui.main.MainMyPageScreen
 import desktop.mall.presentation.ui.product_detail.ProductDetailScreen
 import desktop.mall.presentation.ui.search.SearchScreen
 import desktop.mall.presentation.utils.NavigationUtils
@@ -137,7 +138,7 @@ fun MainNavScreen(viewModel: MainViewModel, navController: NavHostController) {
             route = MainNav.MyPage.route,
             deepLinks = MainNav.MyPage.deepLinks
         ) {
-            Text(text = "MyPage")
+            MainMyPageScreen(viewModel)
         }
         composable(
             route = MainNav.Like.route,
