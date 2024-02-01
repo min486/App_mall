@@ -19,9 +19,9 @@ class CategoryRepositoryImpl @Inject constructor(
     override fun getCategories(): Flow<List<Category>> = flow {
         emit(
             listOf(
-                Category.Top, Category.Bag, Category.Dress,
-                Category.Outerwear, Category.Pants, Category.FashionAccessories,
-                Category.Shoes, Category.Skirt
+                Category.Outerwear, Category.Top, Category.Pants,
+                Category.Suit, Category.Shirt, Category.Shoes,
+                Category.Bag, Category.FashionAccessories
             )
         )
     }
