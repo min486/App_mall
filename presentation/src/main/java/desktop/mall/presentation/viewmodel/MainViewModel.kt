@@ -59,13 +59,13 @@ class MainViewModel @Inject constructor(
         NavigationUtils.navigate(navHostController, BasketNav.route)
     }
 
-    fun singIn(accountInfo: AccountInfo) {
+    fun signIn(accountInfo: AccountInfo) {
         viewModelScope.launch {
             accountUseCase.signIn(accountInfo)
         }
     }
 
-    fun singOut() {
+    fun signOut() {
         viewModelScope.launch {
             accountUseCase.singOut()
         }
