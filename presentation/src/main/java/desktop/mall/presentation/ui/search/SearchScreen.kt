@@ -1,12 +1,17 @@
 package desktop.mall.presentation.ui.search
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -34,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import desktop.mall.presentation.ui.component.ProductCard
+import desktop.mall.presentation.ui.theme.GrayLine3
 import desktop.mall.presentation.viewmodel.SearchViewModel
 
 @Composable
@@ -45,7 +51,9 @@ fun SearchScreen(
     val searchKeywords by viewModel.searchKeywords.collectAsState(listOf())
     var keyword by remember { mutableStateOf("") }
 
-    Column {
+    Column(
+        modifier = Modifier.padding(horizontal = 20.dp)
+    ) {
         SearchBox(
             keyword = keyword,
             onValueChange = { keyword = it },
@@ -55,16 +63,18 @@ fun SearchScreen(
         )
 
         if (searchResult.isEmpty()) {
+            // 검색결과 없으면 (처음 화면)
+            Spacer(modifier = Modifier.height(10.dp))
+            
             Text(
-                modifier = Modifier.padding(6.dp),
                 text = "최근 검색어",
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            LazyColumn(
+            LazyRow(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(10.dp)
+                contentPadding = PaddingValues(top = 10.dp)
             ) {
                 items(searchKeywords.size) { index ->
                     // 최근 검색어가 위로올 수 있게 reversed()로 순서 뒤집기
@@ -75,19 +85,24 @@ fun SearchScreen(
                             keyword = currentKeyword
                             viewModel.search(keyword)
                         },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified)
+                        shape = RoundedCornerShape(20.dp),
+                        border = BorderStroke(1.dp, GrayLine3),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                        modifier = Modifier.padding(end = 10.dp)
                     ) {
                         Text(
                             text = currentKeyword,
-                            fontSize = 18.sp
+                            fontSize = 16.sp
                         )
                     }
                 }
             }
         } else {
-            LazyColumn(
+            // 검색결과 있으면
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(10.dp)
+                contentPadding = PaddingValues(vertical = 10.dp)
             ) {
                 items(searchResult.size) { index ->
                     ProductCard(navHostController = navHostController, presentationVM = searchResult[index])

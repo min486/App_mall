@@ -16,6 +16,7 @@ val GrayText = Color(0xFF757575)
 val GrayText2 = Color(0xFF8B8B8B)
 val GrayLine = Color(0xFFF0F0F0)
 val GrayLine2 = Color(0xFFE6E6E6)
+val GrayLine3 = Color(0xFFDFDFDF)
 val GrayIcon = Color(0xFF949494)
 val GrayButton = Color(0xFFBBBBBB)
 
