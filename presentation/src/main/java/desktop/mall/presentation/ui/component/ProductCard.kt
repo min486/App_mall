@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -48,19 +49,18 @@ import desktop.mall.presentation.ui.theme.Purple40
 @Composable
 fun ProductCard(navHostController: NavHostController, presentationVM: ProductVM) {
     Card(
-        shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .fillMaxWidth()
             .height(intrinsicSize = IntrinsicSize.Max)
-            .padding(10.dp)
-            .shadow(elevation = 10.dp),
+            .padding(start = 6.dp, end = 6.dp, bottom = 30.dp),
+        elevation = 0.dp,
+        shape = RoundedCornerShape(0.dp),
         onClick = { presentationVM.openProduct(navHostController, presentationVM.model) }
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                // .height(350.dp)
-                .padding(10.dp),
+                .fillMaxHeight(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
         ) {
