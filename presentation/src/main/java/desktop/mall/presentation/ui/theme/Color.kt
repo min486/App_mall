@@ -24,3 +24,5 @@ val kakaoSymbol = Color(0xFF000000)
 val kakaoLabel = Color(0xFF191919)
 
 val heart = Color(0xFFEE3A2E)
+
+val basketPrice = Color(0xFF339E39)
