@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
@@ -23,31 +22,26 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import desktop.mall.presentation.R
 import desktop.mall.presentation.ui.iconpack.Event
-import desktop.mall.presentation.ui.main.iconpack.Chat
-import desktop.mall.presentation.ui.main.iconpack.Document
-import desktop.mall.presentation.ui.main.iconpack.Event
-import desktop.mall.presentation.ui.main.iconpack.Smile
 import desktop.mall.presentation.ui.theme.GrayIcon
 import desktop.mall.presentation.ui.theme.GrayLine
 import desktop.mall.presentation.ui.theme.GrayLine2
 import desktop.mall.presentation.viewmodel.MainViewModel
+import desktop.mall.presentation.ui.IconPack
+import desktop.mall.presentation.ui.iconpack.Chat
+import desktop.mall.presentation.ui.iconpack.Document
+import desktop.mall.presentation.ui.iconpack.Smile
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

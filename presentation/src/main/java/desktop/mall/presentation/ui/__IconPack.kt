@@ -1,9 +1,14 @@
 package desktop.mall.presentation.ui
 
 import androidx.compose.ui.graphics.vector.ImageVector
+import desktop.mall.presentation.ui.iconpack.Basket
 import desktop.mall.presentation.ui.iconpack.Chat
 import desktop.mall.presentation.ui.iconpack.Document
 import desktop.mall.presentation.ui.iconpack.Event
+import desktop.mall.presentation.ui.iconpack.Heart
+import desktop.mall.presentation.ui.iconpack.Home
+import desktop.mall.presentation.ui.iconpack.Menu
+import desktop.mall.presentation.ui.iconpack.Search
 import desktop.mall.presentation.ui.iconpack.Smile
 import kotlin.collections.List as ____KtList
 
@@ -16,6 +21,6 @@ public val IconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(Event, Document, Smile, Chat)
+    __AllIcons= listOf(Search, Home, Event, Document, Smile, Chat, Menu, Basket, Heart)
     return __AllIcons!!
   }

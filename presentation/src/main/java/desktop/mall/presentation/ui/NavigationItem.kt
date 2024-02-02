@@ -1,10 +1,5 @@
 package desktop.mall.presentation.ui
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
@@ -13,23 +8,22 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import desktop.mall.domain.model.Category
-import desktop.mall.domain.model.Product
-import desktop.mall.presentation.ui.NavigationRouteName.BASKET
-import desktop.mall.presentation.ui.NavigationRouteName.CATEGORY
 import desktop.mall.presentation.ui.NavigationRouteName.DEEP_LINK_SCHEME
 import desktop.mall.presentation.ui.NavigationRouteName.MAIN_CATEGORY
 import desktop.mall.presentation.ui.NavigationRouteName.MAIN_HOME
 import desktop.mall.presentation.ui.NavigationRouteName.MAIN_LIKE
 import desktop.mall.presentation.ui.NavigationRouteName.MAIN_MY_PAGE
-import desktop.mall.presentation.ui.NavigationRouteName.PRODUCT_DETAIL
-import desktop.mall.presentation.ui.NavigationRouteName.SEARCH
+import desktop.mall.presentation.ui.iconpack.Heart
+import desktop.mall.presentation.ui.iconpack.Home
+import desktop.mall.presentation.ui.iconpack.Menu
+import desktop.mall.presentation.ui.iconpack.Smile
 import desktop.mall.presentation.utils.GsonUtils
 
 sealed class MainNav(override val route: String, val icon: ImageVector, override val title: String) : Destination {
-    object Home : MainNav(MAIN_HOME, Icons.Filled.Home, NavigationTitle.MAIN_HOME)
-    object Category : MainNav(MAIN_CATEGORY, Icons.Filled.Star, NavigationTitle.MAIN_CATEGORY)
-    object MyPage : MainNav(MAIN_MY_PAGE, Icons.Filled.AccountBox, NavigationTitle.MAIN_MY_PAGE)
-    object Like : MainNav(MAIN_LIKE, Icons.Filled.Favorite, NavigationTitle.MAIN_LIKE)
+    object Home : MainNav(MAIN_HOME, IconPack.Home, NavigationTitle.MAIN_HOME)
+    object Category : MainNav(MAIN_CATEGORY, IconPack.Menu, NavigationTitle.MAIN_CATEGORY)
+    object MyPage : MainNav(MAIN_MY_PAGE, IconPack.Smile, NavigationTitle.MAIN_MY_PAGE)
+    object Like : MainNav(MAIN_LIKE, IconPack.Heart, NavigationTitle.MAIN_LIKE)
 
     override val deepLinks: List<NavDeepLink> = listOf(
         navDeepLink { uriPattern = "$DEEP_LINK_SCHEME$route" }
@@ -136,11 +130,11 @@ object NavigationRouteName {
 }
 
 object NavigationTitle {
-    const val MAIN_HOME = "홈"
+    const val MAIN_HOME = "MINU"
     const val MAIN_CATEGORY = "카테고리"
     const val MAIN_MY_PAGE = "마이페이지"
-    const val MAIN_LIKE = "좋아요 목록"
-    const val CATEGORY = "카테고리별 보기"
+    const val MAIN_LIKE = "좋아요"
+    const val CATEGORY = "카테고리 상세"
     const val PRODUCT_DETAIL = "상품 상세"
     const val SEARCH = "검색"
     const val BASKET = "장바구니"
