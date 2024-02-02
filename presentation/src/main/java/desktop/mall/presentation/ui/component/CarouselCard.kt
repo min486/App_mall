@@ -137,7 +137,7 @@ private fun CarouselProductCard(product: Product, presentationVM: CarouselVM, on
                 )
                 IconButton(
                     onClick = { presentationVM.likeProduct(product) },
-                    // IconButton의 위아래로 padding이 들어가서 제거하기 위해 .then() 사용
+                    // IconButton의 위아래로 padding이 들어감. 이를 제거하기 위해 .then() 사용
                     modifier = Modifier.then(Modifier.size(24.dp))
                 ) {
                     if(product.isLike) {

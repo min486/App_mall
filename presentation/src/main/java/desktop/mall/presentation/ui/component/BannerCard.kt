@@ -9,7 +9,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -20,19 +19,18 @@ import desktop.mall.presentation.model.BannerVM
 @Composable
 fun BannerCard(presentationVM: BannerVM) {
     Card(
+        onClick = { presentationVM.openBanner(presentationVM.model.bannerId) },  // 제네릭을 통해서 bannerId 쓸 수 있게함
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
-            .shadow(20.dp),
-        onClick = { presentationVM.openBanner(presentationVM.model.bannerId) }  // 제네릭을 통해서 bannerId 쓸 수 있게함
+            .padding(horizontal = 20.dp)
     ) {
-        Image(painter = painterResource(id = R.drawable.product_image),
+        Image(painter = painterResource(id = R.drawable.banner_brown),
             contentDescription = "description",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(2f)
+                .aspectRatio(2.5f)
         )
     }
 }
