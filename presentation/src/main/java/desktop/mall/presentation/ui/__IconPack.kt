@@ -10,7 +10,7 @@ import desktop.mall.presentation.ui.iconpack.HeartFilled
 import desktop.mall.presentation.ui.iconpack.Home
 import desktop.mall.presentation.ui.iconpack.Menu
 import desktop.mall.presentation.ui.iconpack.Search
-import desktop.mall.presentation.ui.iconpack.Smile
+import desktop.mall.presentation.ui.iconpack.Smile2
 import kotlin.collections.List as ____KtList
 
 public object IconPack
@@ -22,6 +22,7 @@ public val IconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(Search, Home, Event, Document, HeartFilled, Smile, Chat, Menu, Basket, Heart)
+    __AllIcons= listOf(Search, Home, Event, Document, Smile2, HeartFilled, Chat,
+        Menu, Basket, Heart)
     return __AllIcons!!
   }

@@ -16,13 +16,13 @@ import desktop.mall.presentation.ui.NavigationRouteName.MAIN_MY_PAGE
 import desktop.mall.presentation.ui.iconpack.Heart
 import desktop.mall.presentation.ui.iconpack.Home
 import desktop.mall.presentation.ui.iconpack.Menu
-import desktop.mall.presentation.ui.iconpack.Smile
+import desktop.mall.presentation.ui.iconpack.Smile2
 import desktop.mall.presentation.utils.GsonUtils
 
 sealed class MainNav(override val route: String, val icon: ImageVector, override val title: String) : Destination {
     object Home : MainNav(MAIN_HOME, IconPack.Home, NavigationTitle.MAIN_HOME)
     object Category : MainNav(MAIN_CATEGORY, IconPack.Menu, NavigationTitle.MAIN_CATEGORY)
-    object MyPage : MainNav(MAIN_MY_PAGE, IconPack.Smile, NavigationTitle.MAIN_MY_PAGE)
+    object MyPage : MainNav(MAIN_MY_PAGE, IconPack.Smile2, NavigationTitle.MAIN_MY_PAGE)
     object Like : MainNav(MAIN_LIKE, IconPack.Heart, NavigationTitle.MAIN_LIKE)
 
     override val deepLinks: List<NavDeepLink> = listOf(

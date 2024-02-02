@@ -41,7 +41,7 @@ import desktop.mall.presentation.viewmodel.MainViewModel
 import desktop.mall.presentation.ui.IconPack
 import desktop.mall.presentation.ui.iconpack.Chat
 import desktop.mall.presentation.ui.iconpack.Document
-import desktop.mall.presentation.ui.iconpack.Smile
+import desktop.mall.presentation.ui.iconpack.Smile2
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -211,7 +211,7 @@ fun MainCategoryScreen(viewModel: MainViewModel, navController: NavHostControlle
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    imageVector = IconPack.Smile,
+                    imageVector = IconPack.Smile2,
                     contentDescription = null,
                     modifier = Modifier
                         .width(36.dp)

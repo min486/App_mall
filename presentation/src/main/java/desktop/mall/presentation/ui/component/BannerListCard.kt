@@ -31,6 +31,12 @@ import desktop.mall.presentation.ui.theme.LightBlack
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun BannerListCard(presentationVM: BannerListVM) {
+    val bannerList = listOf(
+        R.drawable.banner,
+        R.drawable.banner2,
+        R.drawable.banner3
+    )
+
     val pagerState = rememberPagerState()
 
     // 배너카드가 보일때, 카드의 view와 lifecycle을 동일하게 가져가는 scope
@@ -45,12 +51,12 @@ fun BannerListCard(presentationVM: BannerListVM) {
             onClick = { presentationVM.openBannerList(presentationVM.model.bannerId) }
         ) {
             Image(
-                painter = painterResource(id = R.drawable.banner),
+                painter = painterResource(id = bannerList[it]),
                 contentDescription = "description",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(0.8f)
+                    .aspectRatio(0.65f)
             )
             Box(
                 contentAlignment = Alignment.TopEnd,
