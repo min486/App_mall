@@ -11,14 +11,14 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import desktop.mall.presentation.ui.IconPack
 
-public val IconPack.Heart: ImageVector
+public val IconPack.HeartFilled: ImageVector
     get() {
-        if (_heart != null) {
-            return _heart!!
+        if (_heartFilled != null) {
+            return _heartFilled!!
         }
-        _heart = Builder(name = "Heart", defaultWidth = 800.0.dp, defaultHeight = 800.0.dp,
-                viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0x00000000)), stroke = SolidColor(Color(0xFF000000)),
+        _heartFilled = Builder(name = "HeartFilled", defaultWidth = 800.0.dp, defaultHeight =
+                800.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
+            path(fill = SolidColor(Color(0xFF000000)), stroke = SolidColor(Color(0xFF000000)),
                     strokeLineWidth = 2.0f, strokeLineCap = Round, strokeLineJoin =
                     StrokeJoin.Companion.Round, strokeLineMiter = 4.0f, pathFillType = NonZero) {
                 moveTo(12.7692f, 6.7048f)
@@ -32,7 +32,7 @@ public val IconPack.Heart: ImageVector
             }
         }
         .build()
-        return _heart!!
+        return _heartFilled!!
     }
 
-private var _heart: ImageVector? = null
+private var _heartFilled: ImageVector? = null

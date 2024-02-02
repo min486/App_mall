@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,11 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import desktop.mall.presentation.R
 import desktop.mall.presentation.ui.theme.Purple40
 import desktop.mall.presentation.utils.NumberUtils
@@ -43,13 +47,25 @@ fun ProductDetailScreen(productId: String, viewModel: ProductDetailViewModel = h
 
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.weight(1.5f)) {
+//            Image(
+//                painter = painterResource(id = R.drawable.product_image),
+//                contentDescription = "description",
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//                contentScale = ContentScale.Crop
+//            )
             Image(
-                painter = painterResource(id = R.drawable.product_image),
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(product?.imageUrl)
+                        .apply(block = fun ImageRequest.Builder.(){
+                            crossfade(true)
+                        }).build()
+                ),
                 contentDescription = "description",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth(),
-                //.height(500.dp),
-                contentScale = ContentScale.Crop
+                    .fillMaxWidth()
             )
         }
 

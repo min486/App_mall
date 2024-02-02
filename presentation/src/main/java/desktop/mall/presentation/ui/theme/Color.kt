@@ -19,6 +19,7 @@ val GrayLine2 = Color(0xFFE6E6E6)
 val GrayLine3 = Color(0xFFDFDFDF)
 val GrayIcon = Color(0xFF949494)
 val GrayButton = Color(0xFFBBBBBB)
+val GrayButton2 = Color(0xFFD5D5D5)
 
 val kakaoContainer = Color(0xFFFEE500)
 val kakaoSymbol = Color(0xFF000000)

@@ -6,6 +6,7 @@ import desktop.mall.presentation.ui.iconpack.Chat
 import desktop.mall.presentation.ui.iconpack.Document
 import desktop.mall.presentation.ui.iconpack.Event
 import desktop.mall.presentation.ui.iconpack.Heart
+import desktop.mall.presentation.ui.iconpack.HeartFilled
 import desktop.mall.presentation.ui.iconpack.Home
 import desktop.mall.presentation.ui.iconpack.Menu
 import desktop.mall.presentation.ui.iconpack.Search
@@ -21,6 +22,6 @@ public val IconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(Search, Home, Event, Document, Smile, Chat, Menu, Basket, Heart)
+    __AllIcons= listOf(Search, Home, Event, Document, HeartFilled, Smile, Chat, Menu, Basket, Heart)
     return __AllIcons!!
   }
