@@ -64,7 +64,7 @@ fun SearchScreen(
 
         if (searchResult.isEmpty()) {
             // 검색결과 없으면 (처음 화면)
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             
             Text(
                 text = "최근 검색어",
@@ -102,7 +102,7 @@ fun SearchScreen(
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(vertical = 10.dp)
+                contentPadding = PaddingValues(vertical = 20.dp)
             ) {
                 items(searchResult.size) { index ->
                     ProductCard(navHostController = navHostController, presentationVM = searchResult[index])
@@ -134,7 +134,7 @@ fun SearchBox(
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(4.dp),
             maxLines = 1,
             singleLine = true,
             leadingIcon = { Icon(Icons.Filled.Search, "description") }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
@@ -28,15 +29,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import desktop.mall.domain.model.BasketProduct
 import desktop.mall.domain.model.Product
-import desktop.mall.presentation.R
 import desktop.mall.presentation.ui.theme.GrayIcon
 import desktop.mall.presentation.ui.theme.GrayLine
 import desktop.mall.presentation.ui.theme.GrayLine2
@@ -98,6 +100,10 @@ fun BasketScreen(viewModel: BasketViewModel = hiltViewModel()) {
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = basketPrice,
                     contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(0.dp),
+                elevation = ButtonDefaults.elevation(
+                    defaultElevation = 0.dp
                 )
             ) {
                 Text(
@@ -136,7 +142,13 @@ fun BasketProductCard(basketProduct: BasketProduct, removeProduct: (Product) -> 
             modifier = Modifier.fillMaxWidth()
         ) {
             Image(
-                painter = painterResource(id = R.drawable.product_image), 
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(basketProduct.product.imageUrl)
+                        .apply(block = fun ImageRequest.Builder.(){
+                            crossfade(true)
+                        }).build()
+                ),
                 contentDescription = "description",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

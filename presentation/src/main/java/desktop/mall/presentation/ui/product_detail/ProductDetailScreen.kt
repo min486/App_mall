@@ -1,8 +1,8 @@
 package desktop.mall.presentation.ui.product_detail
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,15 +26,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import desktop.mall.presentation.R
-import desktop.mall.presentation.ui.theme.Purple40
+import desktop.mall.presentation.ui.IconPack
+import desktop.mall.presentation.ui.iconpack.HeartFilled
+import desktop.mall.presentation.ui.theme.GrayButton
+import desktop.mall.presentation.ui.theme.basketPrice
+import desktop.mall.presentation.ui.theme.heart
 import desktop.mall.presentation.utils.NumberUtils
 import desktop.mall.presentation.viewmodel.ProductDetailViewModel
 
@@ -45,81 +49,111 @@ fun ProductDetailScreen(productId: String, viewModel: ProductDetailViewModel = h
         viewModel.updateProduct(productId)
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Box(modifier = Modifier.weight(1.5f)) {
-//            Image(
-//                painter = painterResource(id = R.drawable.product_image),
-//                contentDescription = "description",
-//                modifier = Modifier
-//                    .fillMaxWidth(),
-//                contentScale = ContentScale.Crop
-//            )
-            Image(
-                painter = rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(product?.imageUrl)
-                        .apply(block = fun ImageRequest.Builder.(){
-                            crossfade(true)
-                        }).build()
-                ),
-                contentDescription = "description",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-        }
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(
+                ImageRequest.Builder(LocalContext.current)
+                    .data(product?.imageUrl)
+                    .apply(block = fun ImageRequest.Builder.(){
+                        crossfade(true)
+                    }).build()
+            ),
+            contentDescription = "description",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Card(
+        Column(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 0.dp),
-            elevation = 0.dp
+                .padding(horizontal = 20.dp),
         ) {
-            Column {
-                Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(
-                        text = "${product?.productName}",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    // 하트 추가
-                }
-
-                Spacer(modifier = Modifier.height(20.dp))
-
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
-                    //text = "${product?.price?.finalPrice}",
-                    text = "${NumberUtils.numberFormatPrice(product?.price?.finalPrice)}",
-                    fontSize = 24.sp,
+                    text = "${product?.productName}",
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.SemiBold
                 )
 
+                Icon(
+                    modifier = Modifier.then(Modifier.size(30.dp)),
+                    imageVector = IconPack.HeartFilled,
+                    contentDescription = "description",
+                    tint = heart
+                )
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "₩ ${NumberUtils.numberFormatPrice(product?.price?.finalPrice)}",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Normal
+            )
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
         ) {
-            // 하트 추가
-            Text(
-                text = "test",
-            )
-
             Button(
                 onClick = { viewModel.addBasket(product) },
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(50.dp)
+                    .padding(end = 4.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Purple40,
-                    contentColor = Color.White
+                    backgroundColor = Color.White,
+                    contentColor = Color.Black
+                ),
+                border = BorderStroke(1.dp, GrayButton),
+                shape = RoundedCornerShape(0.dp),
+                elevation = ButtonDefaults.elevation(
+                    defaultElevation = 0.dp
                 )
             ) {
-                Text(text = "장바구니")
+                Text(
+                    text = "장바구니",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black
+                )
+            }
+
+            Button(
+                onClick = { },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .padding(start = 4.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = basketPrice,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(0.dp),
+                elevation = ButtonDefaults.elevation(
+                    defaultElevation = 0.dp
+                )
+            ) {
+                Text(
+                    text = "구매하기",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
             }
         }
-
     }
 }
