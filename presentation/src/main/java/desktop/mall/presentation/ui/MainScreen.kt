@@ -1,6 +1,8 @@
 package desktop.mall.presentation.ui
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -18,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import desktop.mall.presentation.R
 import desktop.mall.presentation.ui.basket.BasketScreen
 import desktop.mall.presentation.ui.category.CategoryScreen
 import desktop.mall.presentation.ui.iconpack.Basket
@@ -82,6 +86,16 @@ fun MainHeader(viewModel: MainViewModel, navController: NavHostController, curre
                     fontSize = 20.sp,
                     color = Color.Black
                 )
+                if (MainNav.isMainHome(currentRoute)) {
+                    // 홈 로고
+                    Image(
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = "description",
+                        modifier = Modifier
+                            .width(44.dp)
+                            .padding(start = 4.dp)
+                    )
+                }
             },
             navigationIcon = null,
             backgroundColor = Color.White,

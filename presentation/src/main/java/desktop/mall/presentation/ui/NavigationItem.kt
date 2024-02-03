@@ -36,6 +36,12 @@ sealed class MainNav(override val route: String, val icon: ImageVector, override
                 else -> false
             }
         }
+        fun isMainHome(route: String?): Boolean {
+            return when (route) {
+                MAIN_HOME -> true
+                else -> false
+            }
+        }
     }
 }
 
