@@ -28,13 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import desktop.mall.domain.model.Product
-import desktop.mall.presentation.R
 import desktop.mall.presentation.model.RankingVM
 import desktop.mall.presentation.ui.IconPack
 import desktop.mall.presentation.ui.iconpack.Heart
@@ -49,7 +50,7 @@ fun RankingCard(navHostController: NavHostController, presentationVM: RankingVM)
     val columnCount = presentationVM.model.productList.size / 2
 
     Column(
-        modifier = Modifier.padding(start = 20.dp)
+        modifier = Modifier.padding(horizontal = 20.dp)
     ) {
         Text(
             text = presentationVM.model.title,
@@ -107,7 +108,7 @@ fun RankingCard(navHostController: NavHostController, presentationVM: RankingVM)
 fun RankingProductCard(product: Product, presentationVM: RankingVM, onClick: (Product) -> Unit) {
     Card(
         modifier = Modifier
-            .width(164.dp)
+            .width(160.dp)
             .padding(bottom = 20.dp),
         elevation = 0.dp,
         shape = RoundedCornerShape(0.dp),
@@ -117,7 +118,13 @@ fun RankingProductCard(product: Product, presentationVM: RankingVM, onClick: (Pr
             modifier = Modifier.fillMaxWidth()
         ) {
             Image(
-                painter = painterResource(R.drawable.product_image),
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(product.imageUrl)
+                        .apply(block = fun ImageRequest.Builder.(){
+                            crossfade(true)
+                        }).build()
+                ),
                 contentDescription = "description",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

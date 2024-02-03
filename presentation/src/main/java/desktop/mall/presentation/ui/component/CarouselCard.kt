@@ -28,11 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import desktop.mall.domain.model.Product
 import desktop.mall.presentation.R
 import desktop.mall.presentation.model.CarouselVM
@@ -114,8 +117,14 @@ private fun CarouselProductCard(product: Product, presentationVM: CarouselVM, on
             horizontalAlignment = Alignment.Start
         ) {
             Image(
-                painter = painterResource(id = R.drawable.product_image),
-                contentDescription = "image",
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(product.imageUrl)
+                        .apply(block = fun ImageRequest.Builder.(){
+                            crossfade(true)
+                        }).build()
+                ),
+                contentDescription = "description",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
