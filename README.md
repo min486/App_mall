@@ -2,6 +2,8 @@
 
 Android 개인 프로젝트
 
+<img src="./README.assets/MINU.png" alt="clean" align="center" width="100%" />
+
 ## 프로젝트 소개
 
 쇼핑몰에서 사용되는 다양한 기능과 UI를 구현하고 싶어서 만든 앱
